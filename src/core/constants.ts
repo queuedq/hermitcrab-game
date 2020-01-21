@@ -4,3 +4,5 @@ export enum Direction {
   Down,
   Left
 }
+
+export const TILE_SIZE = 40;

@@ -21,8 +21,8 @@ const levelRep = {
 
 const level = Level.parse(levelRep);
 
-const renderer = new LevelRenderer(app, level);
-renderer.render();
+const renderer = new LevelRenderer(level);
+renderer.render(app.stage);
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);

@@ -13,7 +13,6 @@ export class Environment {
 
   static parse(rep: EnvironmentRep) { // TODO: Extract parser class
     const mapTile = (cell: string): Tile => {
-      console.log(cell);
       switch (cell) {
         case "#":
           return Tile.Wall;
