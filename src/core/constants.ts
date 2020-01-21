@@ -4,8 +4,3 @@ export enum Direction {
   Down,
   Left
 }
-
-export enum Cell {
-  Empty,
-  Wall
-}
