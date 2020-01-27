@@ -1,10 +1,16 @@
-import { Direction } from "./constants";
+import { Direction } from "./Direction";
+
+export type PointRep = number[];
 
 export class Point {
   constructor(public x: number, public y: number) {}
 
-  static get origin() {
+  static get origin(): Point {
     return new Point(0, 0);
+  }
+
+  static parse(rep: PointRep): Point {
+    return new Point(rep[0], rep[1]);
   }
 
   moveTo(direction: Direction, distance: number = 1) {

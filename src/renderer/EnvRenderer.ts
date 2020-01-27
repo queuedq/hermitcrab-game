@@ -1,15 +1,18 @@
 import { Graphics, DisplayObject, Container } from "pixi.js";
 import { Point } from "../core/Point";
-import { Environment } from "../state/Environment";
-import { Tile } from "../state/Tile";
+import { Environment } from "../model/PuzzleElement/Environment";
+import { Tile } from "../model/Tile";
 import { map2d } from "../core/helpers";
-
-const TILE_SIZE = 40;
+import { RendererOption } from "./RendererOption";
+import { setSpritePos } from "./renderHelper";
 
 export class EnvRenderer {
   private sprites: DisplayObject[] = [];
 
-  constructor(readonly env: Environment) {
+  constructor(
+    readonly env: Environment,
+    readonly option: RendererOption,
+  ) {
     map2d(env.layout, (tile, x, y) => {
       this.sprites.push(this.getTileSprite(tile, new Point(x, y)));
     });
@@ -23,13 +26,13 @@ export class EnvRenderer {
         tileSprite.beginFill(0x444444);
         break;
       case Tile.Wall:
-        tileSprite.beginFill(0x000000);
+        tileSprite.beginFill(0xffffff);
         break;
     }
 
-    tileSprite.drawRect(2, 2, TILE_SIZE - 4, TILE_SIZE - 4);
+    tileSprite.drawRect(2, 2, this.option.tileSize - 4, this.option.tileSize - 4);
     tileSprite.endFill();
-    tileSprite.position.set(pos.x * TILE_SIZE, pos.y * TILE_SIZE);
+    setSpritePos(tileSprite, pos, this.option.tileSize);
 
     return tileSprite;
   }

@@ -1,22 +1,24 @@
 import * as PIXI from "pixi.js";
-import { Point } from "./core/Point";
-import { Level } from "./state/Level";
+import { Level } from "./model/Level";
 import { LevelRenderer } from "./renderer/LevelRenderer";
 
 //Create a Pixi Application
 let app = new PIXI.Application({ width: 800, height: 600 });
 
 const levelRep = {
-  layout: [
-    ".#....1",
-    "....2..",
-    ".3332..",
-    ".3.3...",
-    ".......",
-    ".......",
-    "......."
+  env: [".#.....",
+        ".......",
+        ".......",
+        ".......",
+        ".......",
+        ".......",
+        "......."],
+  player: [6, 0],
+  shells: [
+    { pos: [6, 0], shape: ["7"], },
+    { pos: [4, 1], shape: ["5", "1"] },
+    { pos: [1, 2], shape: ["8ac", "4.6"] },
   ],
-  player: new Point(0, 0),
 };
 
 const level = Level.parse(levelRep);
