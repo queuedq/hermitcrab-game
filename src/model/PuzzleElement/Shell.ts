@@ -40,9 +40,6 @@ export class Shell implements PuzzleElementBase {
       }
     }
 
-    console.log(shapeArr);
-    console.log(cells);
-
     return Shell.create(Point.parse(rep.pos), new Shape(cells));
   }
 

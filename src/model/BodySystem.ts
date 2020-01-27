@@ -3,16 +3,22 @@ import { RigidBody } from "./RigidBody";
 
 export type BodySystemUpdate = {
   type: "Updated";
-  updated: RigidBody[];
+  bodies: RigidBody[];
   newSystem: BodySystem;
 } | {
   type: "Idle";
 }
 
 export class BodySystem {
-  constructor(
-    readonly bodies: Map<string, RigidBody>,
-  ) { }
+  constructor(private readonly bodies: Map<string, RigidBody>) { }
+
+  static fromBodies(bodies: RigidBody[]) {
+    const bodyMap = new Map();
+    bodies.forEach(body => {
+      bodyMap.set(body.id, body);
+    });
+    return new BodySystem(bodyMap);
+  }
 
   private getBody(id: string) {
     return this.bodies.get(id) as RigidBody; // TODO: Write safer code
@@ -30,17 +36,17 @@ export class BodySystem {
       return { type: "Idle" };
     }
 
-    const updated: RigidBody[] = [];
+    const bodies: RigidBody[] = [];
     const newBodies = new Map(this.bodies);
     toMove.forEach(id => {
       const body = this.getBody(id);
       newBodies.set(id, body.moveTo(dir));
-      updated.push(this.getBody(id));
+      bodies.push(this.getBody(id));
     });
 
     return {
       type: "Updated",
-      updated,
+      bodies,
       newSystem: new BodySystem(newBodies),
     };
   }

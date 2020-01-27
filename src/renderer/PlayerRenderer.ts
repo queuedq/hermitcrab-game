@@ -1,15 +1,16 @@
 import { Container, DisplayObject, Graphics } from "pixi.js";
 import { Player } from "../model/PuzzleElement/Player";
 import { RendererOption } from "./RendererOption";
+import { setSpritePos } from "./renderHelper";
 
 export class PlayerRenderer {
-  private readonly playerSprite: DisplayObject
+  private readonly sprite: DisplayObject
 
   constructor(
     readonly player: Player,
     readonly option: RendererOption,
   ) {
-    this.playerSprite = this.getPlayerSprite();
+    this.sprite = this.getPlayerSprite();
   }
 
   private getPlayerSprite(): DisplayObject {
@@ -21,11 +22,14 @@ export class PlayerRenderer {
       (this.player.pos.y + 0.5) * this.option.tileSize,
     );
     sprite.endFill();
-    console.log(sprite.position);
     return sprite;
   }
 
   render(container: Container) {
-    container.addChild(this.playerSprite);
+    container.addChild(this.sprite);
+  }
+
+  update(player: Player) {
+    setSpritePos(this.sprite, player.pos, this.option.tileSize);
   }
 }
