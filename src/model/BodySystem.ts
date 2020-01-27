@@ -28,7 +28,7 @@ export class BodySystem {
     body: RigidBody,
     dir: Direction,
   ): BodySystemUpdate {
-    const toMove = new Set<string>();
+    const toMove = new Set<string>([body.id]);
 
     const movable = this.dfsPushBody(body, dir, toMove);
 
@@ -41,7 +41,7 @@ export class BodySystem {
     toMove.forEach(id => {
       const body = this.getBody(id);
       newBodies.set(id, body.moveTo(dir));
-      bodies.push(this.getBody(id));
+      bodies.push(this.getBody(id).moveTo(dir));
     });
 
     return {

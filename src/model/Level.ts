@@ -53,7 +53,7 @@ export class Level {
 
   pushElement(element: PuzzleElement, dir: Direction): Level {
     const update = this.world.pushBody(element.getBody(), dir);
-    console.log(update);
+    console.log("Update:", update);
     if (update.type === "Idle") { return this; }
 
     const posUpdates = new Map<string, Point>();

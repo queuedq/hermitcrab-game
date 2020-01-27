@@ -7,7 +7,7 @@ export class PlayerRenderer {
   private readonly sprite: DisplayObject
 
   constructor(
-    readonly player: Player,
+    private player: Player,
     readonly option: RendererOption,
   ) {
     this.sprite = this.getPlayerSprite();
@@ -30,6 +30,10 @@ export class PlayerRenderer {
   }
 
   update(player: Player) {
-    setSpritePos(this.sprite, player.pos, this.option.tileSize);
+    this.player = player;
+    this.sprite.position.set(
+      (player.pos.x + 0.5) * this.option.tileSize,
+      (player.pos.y + 0.5) * this.option.tileSize,
+    );
   }
 }
