@@ -1,7 +1,7 @@
 import { Point, PointRep } from "../core/Point";
 import { Shape, Cell } from "../core/Shape";
 import { RigidBody } from "../physics/RigidBody";
-import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
+import { PuzzleElementType, PuzzleElementBase } from "./PuzzleElementBase";
 
 export type PlayerRep = {
   id: string;
@@ -14,7 +14,8 @@ export type PlayerState = {
   pos: Point;
 };
 
-export class Player extends RigidBody implements PuzzleElementBase<PlayerState> {
+export class Player extends RigidBody
+  implements PuzzleElementBase<PlayerState> {
   readonly type: PuzzleElementType.Player = PuzzleElementType.Player;
   private static playerShape = new Shape([Cell.fill(1, Point.origin)]);
 
@@ -30,7 +31,7 @@ export class Player extends RigidBody implements PuzzleElementBase<PlayerState> 
     return {
       type: PuzzleElementType.Player,
       id: this.id,
-      pos: this.pos,
+      pos: this.pos
     };
   }
 

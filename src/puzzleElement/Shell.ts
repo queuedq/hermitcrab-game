@@ -3,7 +3,7 @@ import { Direction } from "../core/Direction";
 import { toCharMap } from "../core/helpers";
 import { Cell, Shape } from "../core/Shape";
 import { RigidBody } from "../physics/RigidBody";
-import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
+import { PuzzleElementType, PuzzleElementBase } from "./PuzzleElementBase";
 
 export interface ShellRep {
   id: string;
@@ -16,7 +16,7 @@ export type ShellState = {
   id: string;
   pos: Point;
   shape: Shape;
-}
+};
 
 export class Shell extends RigidBody implements PuzzleElementBase<ShellState> {
   readonly type: PuzzleElementType.Shell = PuzzleElementType.Shell;
@@ -32,13 +32,23 @@ export class Shell extends RigidBody implements PuzzleElementBase<ShellState> {
     for (let y = 0; y < shapeArr.length; y++) {
       for (let x = 0; x < shapeArr[0].length; x++) {
         const bits = parseInt(shapeArr[y][x], 16);
-        if (isNaN(bits)) { continue; }
+        if (isNaN(bits)) {
+          continue;
+        }
 
         cells.push(Cell.fill(2, new Point(x, y)));
-        if (bits & 8) { cells.push(Cell.fence(1, new Point(x, y), Direction.Up)); }
-        if (bits & 4) { cells.push(Cell.fence(1, new Point(x, y), Direction.Right)); }
-        if (bits & 2) { cells.push(Cell.fence(1, new Point(x, y), Direction.Down)); }
-        if (bits & 1) { cells.push(Cell.fence(1, new Point(x, y), Direction.Left)); }
+        if (bits & 8) {
+          cells.push(Cell.fence(1, new Point(x, y), Direction.Up));
+        }
+        if (bits & 4) {
+          cells.push(Cell.fence(1, new Point(x, y), Direction.Right));
+        }
+        if (bits & 2) {
+          cells.push(Cell.fence(1, new Point(x, y), Direction.Down));
+        }
+        if (bits & 1) {
+          cells.push(Cell.fence(1, new Point(x, y), Direction.Left));
+        }
       }
     }
 
@@ -50,7 +60,7 @@ export class Shell extends RigidBody implements PuzzleElementBase<ShellState> {
       type: PuzzleElementType.Shell,
       id: this.id,
       pos: this.pos,
-      shape: this.collider,
+      shape: this.collider
     };
   }
 

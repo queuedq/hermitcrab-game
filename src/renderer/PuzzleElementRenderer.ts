@@ -1,8 +1,8 @@
 import { Container } from "pixi.js";
-import { PuzzleElementType } from "../puzzleElement/puzzleElementBase";
+import { PuzzleElementType } from "../puzzleElement/PuzzleElementBase";
 import { Shell } from "../puzzleElement/Shell";
 import { Player } from "../puzzleElement/Player";
-import { PuzzleElement } from "../puzzleElement/puzzleElement";
+import { PuzzleElement } from "../puzzleElement/PuzzleElement";
 import { RendererOption } from "./RendererOption";
 import { ShellRenderer } from "./ShellRenderer";
 import { PlayerRenderer } from "./PlayerRenderer";
@@ -13,13 +13,15 @@ export class PuzzleElementRenderer {
 
   constructor(
     readonly elements: PuzzleElement[],
-    readonly option: RendererOption,
+    readonly option: RendererOption
   ) {
     this.shellRenderer = new ShellRenderer(
-      elements.filter(el => el.type === PuzzleElementType.Shell) as Shell[], option,
+      elements.filter(el => el.type === PuzzleElementType.Shell) as Shell[],
+      option
     );
     this.playerRenderer = new PlayerRenderer(
-      elements.filter(el => el.type === PuzzleElementType.Player)[0] as Player, option,
+      elements.filter(el => el.type === PuzzleElementType.Player)[0] as Player,
+      option
     );
   }
 
@@ -29,8 +31,12 @@ export class PuzzleElementRenderer {
   }
 
   update(elements: PuzzleElement[]) {
-    const shells = elements.filter(el => el.type === PuzzleElementType.Shell) as Shell[];
-    const player = elements.filter(el => el.type === PuzzleElementType.Player)[0] as Player;
+    const shells = elements.filter(
+      el => el.type === PuzzleElementType.Shell
+    ) as Shell[];
+    const player = elements.filter(
+      el => el.type === PuzzleElementType.Player
+    )[0] as Player;
     this.shellRenderer.update(shells);
     this.playerRenderer.update(player);
   }

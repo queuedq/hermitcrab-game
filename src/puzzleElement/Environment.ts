@@ -2,25 +2,24 @@ import { map2d, toCharMap } from "../core/helpers";
 import { Point } from "../core/Point";
 import { Shape, Cell } from "../core/Shape";
 import { RigidBody } from "../physics/RigidBody";
-import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
+import { PuzzleElementType, PuzzleElementBase } from "./PuzzleElementBase";
 
 export enum Tile {
   Floor = "Floor",
-  Wall = "Wall",
+  Wall = "Wall"
 }
 
 export type EnvironmentRep = string[];
 export type EnvironmentState = {
   type: PuzzleElementType.Environment;
   layout: Tile[][];
-}
+};
 
-export class Environment extends RigidBody implements PuzzleElementBase<EnvironmentState> {
+export class Environment extends RigidBody
+  implements PuzzleElementBase<EnvironmentState> {
   readonly type: PuzzleElementType.Environment = PuzzleElementType.Environment;
 
-  private constructor(
-    readonly layout: Tile[][],
-  ) {
+  private constructor(readonly layout: Tile[][]) {
     super("env", Point.origin, Environment.getCollider(layout), false);
   }
 
@@ -77,7 +76,7 @@ export class Environment extends RigidBody implements PuzzleElementBase<Environm
         default:
           return Tile.Floor;
       }
-    }
+    };
 
     return new Environment(map2d(toCharMap(rep), mapTile));
   }
@@ -85,8 +84,8 @@ export class Environment extends RigidBody implements PuzzleElementBase<Environm
   exportState(): EnvironmentState {
     return {
       type: PuzzleElementType.Environment,
-      layout: this.layout,
-    }
+      layout: this.layout
+    };
   }
 
   importState(state: EnvironmentState) {

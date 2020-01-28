@@ -1,7 +1,7 @@
 import { Container } from "pixi.js";
 import { Level } from "../game/Level";
 import { EnvRenderer } from "./EnvRenderer";
-import { PuzzleElementRenderer } from "./puzzleElementRenderer";
+import { PuzzleElementRenderer } from "./PuzzleElementRenderer";
 import { RendererOption } from "./RendererOption";
 import { Point } from "../core/Point";
 
@@ -16,7 +16,10 @@ export class LevelRenderer {
 
   constructor(readonly level: Level) {
     this.envRenderer = new EnvRenderer(this.level.env, this.option);
-    this.elementRenderer = new PuzzleElementRenderer(this.level.getElementList(), this.option);
+    this.elementRenderer = new PuzzleElementRenderer(
+      this.level.getElementList(),
+      this.option
+    );
   }
 
   render(container: Container) {

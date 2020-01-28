@@ -1,10 +1,10 @@
 import { Direction } from "../core/Direction";
 import { BodySystem } from "../physics/BodySystem";
-import { PuzzleElementType } from "../puzzleElement/puzzleElementBase";
+import { PuzzleElementType } from "../puzzleElement/PuzzleElementBase";
 import { Environment, EnvironmentRep, EnvironmentState } from "../puzzleElement/Environment";
 import { Player, PlayerRep } from "../puzzleElement/Player";
 import { Shell, ShellRep } from "../puzzleElement/Shell";
-import { PuzzleElement, PuzzleElementState } from "../puzzleElement/puzzleElement";
+import { PuzzleElement, PuzzleElementState } from "../puzzleElement/PuzzleElement";
 
 export interface LevelRep {
   env: EnvironmentRep;
