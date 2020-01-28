@@ -3,7 +3,7 @@ import { RendererOption } from "./RendererOption";
 import { Cell } from "../model/Shape";
 import { setSpritePos } from "./renderHelper";
 import { Direction } from "../core/Direction";
-import { Shell } from "../model/PuzzleElement/Shell";
+import { Shell } from "../puzzleElement/Shell";
 
 export class ShellRenderer {
   private sprites = new Map<string, DisplayObject>();
@@ -23,7 +23,7 @@ export class ShellRenderer {
   private getShellSprite(shell: Shell): DisplayObject {
     const sprite = new Graphics();
 
-    shell.getBody().collider.cells.forEach(cell => {
+    shell.collider.cells.forEach(cell => {
       switch(cell.cellType.type) {
         case "Fill": {
           sprite.beginFill(0x007F00);

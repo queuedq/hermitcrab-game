@@ -1,11 +1,10 @@
-import { Point } from "../core/Point";
 import { Direction } from "../core/Direction";
 import { BodySystem } from "./BodySystem";
-import { PuzzleElementType } from "./PuzzleElement/PuzzleElementBase";
-import { Environment, EnvironmentRep } from "./PuzzleElement/Environment";
-import { Player, PlayerRep } from "./PuzzleElement/Player";
-import { Shell, ShellRep } from "./PuzzleElement/Shell";
-import { PuzzleElement } from "./PuzzleElement/PuzzleElement";
+import { PuzzleElementType } from "../puzzleElement/puzzleElementBase";
+import { Environment, EnvironmentRep, EnvironmentState } from "../puzzleElement/Environment";
+import { Player, PlayerRep } from "../puzzleElement/Player";
+import { Shell, ShellRep } from "../puzzleElement/Shell";
+import { PuzzleElement, PuzzleElementState } from "../puzzleElement/puzzleElement";
 
 export interface LevelRep {
   env: EnvironmentRep;
@@ -13,56 +12,42 @@ export interface LevelRep {
   shells: ShellRep[];
 }
 
+export type LevelState = {
+  env: EnvironmentState;
+  elements: PuzzleElementState;
+}
+
 export class Level {
   private world: BodySystem;
-  private elementMap: Map<string, PuzzleElement>;
+  elements: Map<string, PuzzleElement>;
 
   constructor(
     readonly env: Environment,
-    readonly elements: PuzzleElement[],
+    elements: PuzzleElement[],
   ) {
+    this.elements = new Map(elements.map(el => [el.id, el]));
     this.world = this.createWorld();
-    this.elementMap = new Map();
-    elements.map(el => {
-      this.elementMap.set(el.id, el);
-    });
   }
 
   private createWorld(): BodySystem {
-    return BodySystem.fromBodies([
-      this.env.getBody(),
-      ...this.elements.map(el => el.getBody()),
-    ]);
+    return BodySystem.fromBodies([ this.env, ...this.elements.values() ]);
+  }
+
+  getElementList(): PuzzleElement[] {
+    return [...this.elements.values()];
   }
 
   private getCurrentPlayer(): Player {
-    return this.elements.filter(el => el.type === PuzzleElementType.Player)[0] as Player;
+    return this.getElementList().filter(el => (
+      el.type === PuzzleElementType.Player
+    ))[0] as Player; // TODO: Write safer code
   }
 
-  updateElementsPos(updates: Map<string, Point>): Level {
-    const newElementMap = new Map(this.elementMap);
-    updates.forEach((pos, id) => {
-      const el = newElementMap.get(id) as PuzzleElement;
-      newElementMap.set(id, el.updatePos(pos));
-    })
-
-    const newElements = [...newElementMap.values()];
-
-    return new Level(this.env, newElements);
+  private pushElement(element: PuzzleElement, dir: Direction) {
+    this.world.pushBody(element, dir);
   }
 
-  pushElement(element: PuzzleElement, dir: Direction): Level {
-    const update = this.world.pushBody(element.getBody(), dir);
-    console.log("Update:", update);
-    if (update.type === "Idle") { return this; }
-
-    const posUpdates = new Map<string, Point>();
-    update.bodies.forEach(body => posUpdates.set(body.id, body.pos));
-
-    return this.updateElementsPos(posUpdates);
-  }
-
-  movePlayer(dir: Direction): Level {
+  movePlayer(dir: Direction) {
     return this.pushElement(this.getCurrentPlayer(), dir);
   }
 
@@ -72,5 +57,9 @@ export class Level {
     const shells = rep.shells.map(Shell.parse);
 
     return new Level(env, [player, ...shells]);
+  }
+
+  exportState() {
+
   }
 }

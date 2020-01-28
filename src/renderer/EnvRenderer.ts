@@ -1,7 +1,6 @@
 import { Graphics, DisplayObject, Container } from "pixi.js";
 import { Point } from "../core/Point";
-import { Environment } from "../model/PuzzleElement/Environment";
-import { Tile } from "../model/Tile";
+import { Environment, Tile } from "../puzzleElement/Environment";
 import { map2d } from "../core/helpers";
 import { RendererOption } from "./RendererOption";
 import { setSpritePos } from "./renderHelper";

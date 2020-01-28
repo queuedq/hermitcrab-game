@@ -5,28 +5,23 @@ import { Shape } from "./Shape";
 export class RigidBody {
   constructor(
     readonly id: string,
-    readonly pos: Point,
+    public pos: Point,
     readonly collider: Shape,
-    readonly pushable: boolean,
+    public pushable: boolean,
   ) { }
 
-  displacedCollider() {
+  private displacedCollider(): Shape {
     return this.collider.add(this.pos);
   }
 
-  moveCollides(dir: Direction, body: RigidBody) {
+  moveCollides(dir: Direction, body: RigidBody): boolean {
     return this.displacedCollider().moveCollides(
       dir,
       body.displacedCollider(),
     );
   }
 
-  moveTo(dir: Direction) {
-    return new RigidBody(
-      this.id,
-      this.pos.moveTo(dir),
-      this.collider,
-      this.pushable,
-    );
+  moveTo(dir: Direction): void {
+    this.pos = this.pos.moveTo(dir);
   }
 }

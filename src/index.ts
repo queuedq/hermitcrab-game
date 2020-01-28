@@ -15,11 +15,11 @@ const levelRep = {
         ".......",
         ".......",
         "......."],
-  player: [6, 0],
+  player: { id: "player", pos: [6, 0] },
   shells: [
-    { pos: [6, 0], shape: ["7"], },
-    { pos: [4, 1], shape: ["5", "1"] },
-    { pos: [1, 2], shape: ["8ac", "4.6"] },
+    { id: "startshell", pos: [6, 0], shape: ["7"], },
+    { id: "endshell", pos: [4, 1], shape: ["5", "1"] },
+    { id: "ushell", pos: [1, 2], shape: ["8ac", "4.6"] },
   ],
 };
 
@@ -35,19 +35,19 @@ const down = keyboard("ArrowDown");
 const left = keyboard("ArrowLeft");
 
 up.press = () => {
-  level = level.movePlayer(Direction.Up);
+  level.movePlayer(Direction.Up);
   renderer.update(level);
 }
 right.press = () => {
-  level = level.movePlayer(Direction.Right);
+  level.movePlayer(Direction.Right);
   renderer.update(level);
 }
 down.press = () => {
-  level = level.movePlayer(Direction.Down);
+  level.movePlayer(Direction.Down);
   renderer.update(level);
 }
 left.press = () => {
-  level = level.movePlayer(Direction.Left);
+  level.movePlayer(Direction.Left);
   renderer.update(level);
 }
 

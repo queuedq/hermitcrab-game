@@ -1,7 +1,6 @@
 import { Container, DisplayObject, Graphics } from "pixi.js";
-import { Player } from "../model/PuzzleElement/Player";
+import { Player } from "../puzzleElement/Player";
 import { RendererOption } from "./RendererOption";
-import { setSpritePos } from "./renderHelper";
 
 export class PlayerRenderer {
   private readonly sprite: DisplayObject

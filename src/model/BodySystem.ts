@@ -3,8 +3,6 @@ import { RigidBody } from "./RigidBody";
 
 export type BodySystemUpdate = {
   type: "Updated";
-  bodies: RigidBody[];
-  newSystem: BodySystem;
 } | {
   type: "Idle";
 }
@@ -14,9 +12,7 @@ export class BodySystem {
 
   static fromBodies(bodies: RigidBody[]) {
     const bodyMap = new Map();
-    bodies.forEach(body => {
-      bodyMap.set(body.id, body);
-    });
+    bodies.forEach(body => bodyMap.set(body.id, body));
     return new BodySystem(bodyMap);
   }
 
@@ -31,24 +27,13 @@ export class BodySystem {
     const toMove = new Set<string>([body.id]);
 
     const movable = this.dfsPushBody(body, dir, toMove);
+    if (!movable) { return { type: "Idle" }; }
 
-    if (!movable) {
-      return { type: "Idle" };
-    }
-
-    const bodies: RigidBody[] = [];
-    const newBodies = new Map(this.bodies);
     toMove.forEach(id => {
       const body = this.getBody(id);
-      newBodies.set(id, body.moveTo(dir));
-      bodies.push(this.getBody(id).moveTo(dir));
+      body.moveTo(dir);
     });
-
-    return {
-      type: "Updated",
-      bodies,
-      newSystem: new BodySystem(newBodies),
-    };
+    return { type: "Updated" };
   }
 
   private dfsPushBody(

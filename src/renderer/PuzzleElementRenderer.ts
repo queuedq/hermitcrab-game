@@ -1,8 +1,8 @@
 import { Container } from "pixi.js";
-import { PuzzleElementType } from "../model/PuzzleElement/PuzzleElementBase";
-import { Shell } from "../model/PuzzleElement/Shell";
-import { Player } from "../model/PuzzleElement/Player";
-import { PuzzleElement } from "../model/PuzzleElement/PuzzleElement";
+import { PuzzleElementType } from "../puzzleElement/puzzleElementBase";
+import { Shell } from "../puzzleElement/Shell";
+import { Player } from "../puzzleElement/Player";
+import { PuzzleElement } from "../puzzleElement/puzzleElement";
 import { RendererOption } from "./RendererOption";
 import { ShellRenderer } from "./ShellRenderer";
 import { PlayerRenderer } from "./PlayerRenderer";
