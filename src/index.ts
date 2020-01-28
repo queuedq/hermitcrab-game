@@ -1,8 +1,6 @@
 import * as PIXI from "pixi.js";
-import { Level } from "./model/Level";
-import { LevelRenderer } from "./renderer/LevelRenderer";
-import { keyboard } from "./pixi/keyboard";
-import { Direction } from "./core/Direction";
+import { Level } from "./game/Level";
+import { Game } from "./game/Game";
 
 //Create a Pixi Application
 let app = new PIXI.Application({ width: 800, height: 600 });
@@ -23,33 +21,8 @@ const levelRep = {
   ],
 };
 
-let level = Level.parse(levelRep);
-
-const renderer = new LevelRenderer(level);
-renderer.render(app.stage);
-
-
-const up = keyboard("ArrowUp");
-const right = keyboard("ArrowRight");
-const down = keyboard("ArrowDown");
-const left = keyboard("ArrowLeft");
-
-up.press = () => {
-  level.movePlayer(Direction.Up);
-  renderer.update(level);
-}
-right.press = () => {
-  level.movePlayer(Direction.Right);
-  renderer.update(level);
-}
-down.press = () => {
-  level.movePlayer(Direction.Down);
-  renderer.update(level);
-}
-left.press = () => {
-  level.movePlayer(Direction.Left);
-  renderer.update(level);
-}
+const level = Level.parse(levelRep);
+const game = new Game(level, app.stage);
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);

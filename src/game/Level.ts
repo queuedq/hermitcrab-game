@@ -1,5 +1,5 @@
 import { Direction } from "../core/Direction";
-import { BodySystem } from "./BodySystem";
+import { BodySystem } from "../physics/BodySystem";
 import { PuzzleElementType } from "../puzzleElement/puzzleElementBase";
 import { Environment, EnvironmentRep, EnvironmentState } from "../puzzleElement/Environment";
 import { Player, PlayerRep } from "../puzzleElement/Player";
@@ -14,7 +14,7 @@ export interface LevelRep {
 
 export type LevelState = {
   env: EnvironmentState;
-  elements: PuzzleElementState;
+  elements: PuzzleElementState[];
 }
 
 export class Level {
@@ -59,7 +59,27 @@ export class Level {
     return new Level(env, [player, ...shells]);
   }
 
-  exportState() {
+  exportState(): LevelState {
+    return {
+      env: this.env.exportState(),
+      elements: this.getElementList().map(el => el.exportState()),
+    };
+  }
 
+  importState(state: LevelState) {
+    state.elements.map(el => {
+      switch (el.type) {
+        case PuzzleElementType.Environment:
+          break;
+
+        case PuzzleElementType.Player:
+          (this.elements.get(el.id) as Player).importState(el);
+          break;
+
+        case PuzzleElementType.Shell:
+          (this.elements.get(el.id) as Shell).importState(el);
+          break;
+      }
+    });
   }
 }

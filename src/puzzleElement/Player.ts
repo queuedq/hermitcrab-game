@@ -1,6 +1,6 @@
 import { Point, PointRep } from "../core/Point";
-import { RigidBody } from "../model/RigidBody";
-import { Shape, Cell } from "../model/Shape";
+import { Shape, Cell } from "../core/Shape";
+import { RigidBody } from "../physics/RigidBody";
 import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
 
 export type PlayerRep = {

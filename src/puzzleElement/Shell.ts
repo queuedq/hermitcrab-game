@@ -1,8 +1,8 @@
 import { Point, PointRep } from "../core/Point";
 import { Direction } from "../core/Direction";
 import { toCharMap } from "../core/helpers";
-import { Cell, Shape } from "../model/Shape";
-import { RigidBody } from "../model/RigidBody";
+import { Cell, Shape } from "../core/Shape";
+import { RigidBody } from "../physics/RigidBody";
 import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
 
 export interface ShellRep {

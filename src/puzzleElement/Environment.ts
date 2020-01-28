@@ -1,7 +1,7 @@
 import { map2d, toCharMap } from "../core/helpers";
 import { Point } from "../core/Point";
-import { RigidBody } from "../model/RigidBody";
-import { Shape, Cell } from "../model/Shape";
+import { Shape, Cell } from "../core/Shape";
+import { RigidBody } from "../physics/RigidBody";
 import { PuzzleElementType, PuzzleElementBase } from "./puzzleElementBase";
 
 export enum Tile {
@@ -10,7 +10,10 @@ export enum Tile {
 }
 
 export type EnvironmentRep = string[];
-export type EnvironmentState = Tile[][];
+export type EnvironmentState = {
+  type: PuzzleElementType.Environment;
+  layout: Tile[][];
+}
 
 export class Environment extends RigidBody implements PuzzleElementBase<EnvironmentState> {
   readonly type: PuzzleElementType.Environment = PuzzleElementType.Environment;
@@ -80,7 +83,10 @@ export class Environment extends RigidBody implements PuzzleElementBase<Environm
   }
 
   exportState(): EnvironmentState {
-    return this.layout;
+    return {
+      type: PuzzleElementType.Environment,
+      layout: this.layout,
+    }
   }
 
   importState(state: EnvironmentState) {

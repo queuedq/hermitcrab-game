@@ -1,6 +1,6 @@
 import { Container, DisplayObject, Graphics } from "pixi.js";
 import { RendererOption } from "./RendererOption";
-import { Cell } from "../model/Shape";
+import { Cell } from "../core/Shape";
 import { setSpritePos } from "./renderHelper";
 import { Direction } from "../core/Direction";
 import { Shell } from "../puzzleElement/Shell";

@@ -1,5 +1,5 @@
-import { Point } from "../core/Point";
-import { Direction, oppositeDir } from "../core/Direction";
+import { Point } from "./Point";
+import { Direction, oppositeDir } from "./Direction";
 
 export type CellType = { type: "Fill"; } | { type: "Fence"; dir: Direction; };
 

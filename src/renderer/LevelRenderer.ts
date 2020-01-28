@@ -1,5 +1,5 @@
 import { Container } from "pixi.js";
-import { Level } from "../model/Level";
+import { Level } from "../game/Level";
 import { EnvRenderer } from "./EnvRenderer";
 import { PuzzleElementRenderer } from "./puzzleElementRenderer";
 import { RendererOption } from "./RendererOption";

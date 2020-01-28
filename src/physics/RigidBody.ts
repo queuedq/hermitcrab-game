@@ -1,6 +1,6 @@
 import { Point } from "../core/Point";
 import { Direction } from "../core/Direction";
-import { Shape } from "./Shape";
+import { Shape } from "../core/Shape";
 
 export class RigidBody {
   constructor(
